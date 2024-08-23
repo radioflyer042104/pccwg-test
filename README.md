@@ -36,7 +36,7 @@
 <h4>Windows</h4>
 
 1. Update path to JAVA_HOME in [build.bat](build.bat)
-2. Open cmd or Powershell then run build.bat
+2. Open cmd then run build.bat
 
 The following network and containers should be created and started: <br>
 
