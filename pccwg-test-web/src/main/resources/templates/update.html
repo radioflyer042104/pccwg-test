@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PCCWG Web</title>
+<script src="/jquery-3.7.1.min.js"></script>
+<script>
+$(document).ready(function() {
+	$("#update").click(function() {
+		var users = [];
+		var id = $("#id").val();
+		var name = $("#name").val();
+		var email = $("#email").val();
+		var password = $("#password").val();
+		var user = {}
+		user["id"] = id;
+		user["name"] = name;
+		user["email"] = email;
+		user["password"] = password;
+		users.push(user);
+		$.ajax({
+				type: "PUT",
+				url: "http://localhost:9090/api/update",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				data: JSON.stringify(users),
+				success: function(data, stats, jqXHR) {
+					document.location.href = '/';
+				},
+				error: function (jqXHR, status, error) {
+					alert(jqXHR.responseText);
+				}
+		});
+	});
+	$("#back").click(function() {
+		document.location.href = '/';
+	});
+});
+</script>
+</head>
+<body>
+<form th:action="@{/update}" th:object="${user}" method="post">
+		<table>
+			<tr>
+				<td>Name:</td>
+				<td>
+					<input type="text" th:field="*{name}">
+					<input type="hidden" th:field="*{id}">
+				</td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td>
+					<input type="email" th:field="*{email}">
+				</td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td>
+					<input type="text" th:field="*{password}">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="button" id="update" value="Update">
+					<input type="button" id="back" value="Back">
+				</td>
+			</tr>
+		</table>
+		
+</form>
+</body>
+</html>

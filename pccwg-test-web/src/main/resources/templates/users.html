@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PCCWG Web</title>
+<script src="jquery-3.7.1.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$.get('http://localhost:9090/api/list',
+				function(data, status, jqXHR) {
+					var userrow = $("#userrow"); 
+					for (var i = 0; i < data.length; i++) {
+						var row = userrow.clone();
+						row.find("#id").val(data[i]["id"]);
+						row.find("#name").text(data[i]["name"]);
+						row.find("#email").text(data[i]["email"]);
+						row.find("#deleted").prop("checked", data[i]["deleted"]);
+						row.find("#selected").prop("disabled", data[i]["deleted"]);
+						row.insertAfter(userrow);
+						userrow = row;
+					}
+					var userrow = $("#userrow").remove();
+				});
+		
+		$("#register").click(function() {
+			document.location.href = '/register';
+		});
+		
+		$("#reload").click(function() {
+			document.location.href = '/';
+		});
+		
+		$("#update").click(function() {
+			if ($("#selected:checked").length != 1) {
+				alert("Select one record to be updated");
+			} else {
+				var id = $("#selected:checked").parent().find("#id").val();
+				console.log("id: " + id);
+				document.location.href = '/update/' + id;
+			}
+			
+			
+		});		
+		
+		$("#delete").click(function() {
+			var ids = [];
+			$("#selected:checked").each(function(i, obj) {
+				var id = $(this).parent().find("#id").val();
+				ids.push(id);
+			});
+ 			$.ajax({
+					type: "DELETE",
+					url: "http://localhost:9090/api/delete",
+					contentType: "application/json; charset=utf-8",
+					dataType: "text",
+					data: JSON.stringify(ids),
+					success: function(data, textStatus, jqXHR) {
+						document.location.href = '/';
+					},
+					error: function (jqXHR, status, error) {
+						alert(jqXHR.responseText);
+					}
+			});			 
+		});
+		
+	});
+</script>
+</head>
+<body>
+<form action="#" method="post">
+	<table>
+		<thead>
+			<tr>
+				<td colspan="5">
+					<input type="button" value="Register" id="register">
+					<input type="button" value="Update Selected" id="update"> 
+					<input type="button" value="Delete Selected" id="delete">
+					<input type="button" value="Reload" id="reload">
+				</td>
+			</tr>
+			<tr>
+				<td>Select</td>
+				<td>Name</td>
+				<td>Email</td>
+				<td>Deleted</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr id="userrow">
+				<td>
+					<input type="checkbox" name="selected" id="selected">
+					<input type="hidden" name="id" id="id">
+				</td>
+				<td>
+					<span name="name" id="name"></span>
+				</td>
+				<td>
+					<span name="email" id="email"></span>
+				</td>
+				<td>
+					<input type="checkbox" name="deleted" id="deleted" disabled="disabled">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PCCWG Web</title>
+<script src="jquery-3.7.1.min.js"></script>
+<script>
+$(document).ready(function() {
+	$("#register").click(function() {
+		var name = $("#name").val();
+		var email = $("#email").val();
+		var password = $("#password").val();
+		var user = {}
+		user["name"] = name;
+		user["email"] = email;
+		user["password"] = password;
+		$.ajax({
+				type: "POST",
+				url: "http://localhost:9090/api/register",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				data: JSON.stringify(user),
+				success: function(data, stats, jqXHR) {
+					document.location.href = '/';
+				},
+				error: function (jqXHR, status, error) {
+					alert(jqXHR.responseText);
+				}
+		});
+	});
+	$("#back").click(function() {
+		document.location.href = '/';
+	});	
+});
+</script>
+</head>
+<body>
+<form action="#" method="post">
+		<table>
+			<tr>
+				<td>Name:</td>
+				<td>
+					<input type="text" id="name" name="name">
+					<input type="hidden" id="id" name="id">
+				</td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td><input type="email" id="email" name="email"></td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td><input type="password" id="password" name="password"></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="button" id="register" value="Register">
+					<input type="button" id="back" value="Back">
+				</td>
+			</tr>
+		</table>
+		
+</form>
+</body>
+</html>
