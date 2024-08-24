@@ -7,7 +7,7 @@
   1.1.3.  __/api/update__  - Updates users <br>
   1.1.4.  __/api/delete__  - Marks users as deleted <br>
   1.1.5.  __/api/get/{id}__  - Gets a single user <br>
-  1.1.5.  __/api/delete/{id}__  - Marks a single user as deleted <br>
+  1.1.6.  __/api/delete/{id}__  - Marks a single user as deleted <br>
 2. Topic Initializer - Initializes a Kafka Topic to decouple user management and email sending <br>
 3. Event Consumer - Consumes events from the Kafka Topic then sends welcome emails to new users <br>
 4. Web UI - Simple interface for the Rest API
