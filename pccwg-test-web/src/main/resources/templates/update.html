@@ -19,7 +19,8 @@ $(document).ready(function() {
 		users.push(user);
 		$.ajax({
 				type: "PUT",
-				url: "http://localhost:9090/api/update",
+				//url: "http://localhost:9090/api/update",
+				url: "/updateUser",
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
 				data: JSON.stringify(users),

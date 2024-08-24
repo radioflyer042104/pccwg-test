@@ -10,9 +10,9 @@ public interface RestService {
 	
 	public UserDto registerUser(UserDto dto);
 	
-	public void updateUsers(List<UserDto> dtos);
+	public List<UserDto> updateUsers(List<UserDto> dtos);
 	
-	public void deleteUsers(List<Long> ids);
+	public String deleteUsers(List<Long> ids);
 	
 	public UserDto getUser(Long userId);
 }

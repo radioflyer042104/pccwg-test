@@ -16,5 +16,7 @@ public interface UserService {
 	
 	public String deleteUsers(List<Long> userIds) throws UserNotFoundException;
 	
+	public String deleteUser(Long userId) throws UserNotFoundException;
+	
 	public UserDto getUser(Long userId) throws UserNotFoundException;
 }

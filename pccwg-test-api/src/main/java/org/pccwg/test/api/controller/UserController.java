@@ -55,4 +55,9 @@ public class UserController {
     public ResponseEntity<UserDto> getUser(@PathVariable("id") Long userId) throws UserNotFoundException {
     	return ResponseEntity.ok().body(userService.getUser(userId));
     }
+    
+    @DeleteMapping(path = "/delete/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable("id") Long userId) throws UserNotFoundException {
+    	return ResponseEntity.ok().body(userService.deleteUser(userId));
+    }    
 }

@@ -15,7 +15,8 @@ $(document).ready(function() {
 		user["password"] = password;
 		$.ajax({
 				type: "POST",
-				url: "http://localhost:9090/api/register",
+				//url: "http://localhost:9090/api/register",
+				url: "/registerUser",
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
 				data: JSON.stringify(user),

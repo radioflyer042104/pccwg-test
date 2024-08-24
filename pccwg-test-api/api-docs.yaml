@@ -60,6 +60,25 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/UserDto"
+  /api/get/{id}:
+    get:
+      tags:
+      - user-controller
+      operationId: getUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserDto"
   /api/delete:
     delete:
       tags:
@@ -81,6 +100,25 @@ paths:
             '*/*':
               schema:
                 type: string
+  /api/delete/{id}:
+    delete:
+      tags:
+      - user-controller
+      operationId: deleteUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
 components:
   schemas:
     UserDto:
@@ -94,6 +132,7 @@ components:
           type: integer
           format: int64
         name:
+          pattern: "^(?!.*,.*$).*$"
           type: string
         email:
           type: string

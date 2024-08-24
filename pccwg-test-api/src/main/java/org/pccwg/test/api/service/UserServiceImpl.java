@@ -113,5 +113,21 @@ public class UserServiceImpl implements UserService {
 			throw new UserNotFoundException("Error: Invalid id: " + userId);
 		}
 	}
+
+	@Override
+	public String deleteUser(Long userId) throws UserNotFoundException {
+		try {
+			Uzer entity = userRepo.getReferenceById(userId);
+			if (!entity.getDeleted()) {
+				entity.setDeleted(true);
+				userRepo.save(entity);
+			} else {
+				throw new UserNotFoundException("Error: Invalid id: " + userId);
+			}
+		} catch (EntityNotFoundException e) {
+			throw new UserNotFoundException("Error: Invalid id: " + userId);
+		}
+		return "User marked as deleted";
+	}
 	
 }
